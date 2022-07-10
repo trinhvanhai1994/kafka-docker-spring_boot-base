@@ -10,7 +10,7 @@ spring:
   datasource:
     #root/admin
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/comas
+    url: jdbc:mysql://localhost:3306/comas?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: admin
     jpa:
