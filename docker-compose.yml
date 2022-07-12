@@ -11,11 +11,16 @@ services:
         - MYSQL_ROOT_PASSWORD=admin
     ports:
         - '3306:3306'
+
+  redis:
+    image: "redis:alpine"
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+
   kafka:
     image: confluentinc/cp-kafka:latest
     depends_on:
@@ -29,13 +34,13 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
   comas-app:
     depends_on:
       - mysql
       - zookeeper
       - kafka
     build: /kafka-docker-spring_boot-base
-
 #    keep open the terminal after building container
     stdin_open: true
     tty: true
